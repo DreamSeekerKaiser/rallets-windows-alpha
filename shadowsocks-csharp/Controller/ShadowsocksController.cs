@@ -11,6 +11,10 @@ using Shadowsocks.Controller.Strategy;
 using Shadowsocks.Model;
 using Shadowsocks.Properties;
 using Shadowsocks.Util;
+using Newtonsoft.Json.Linq;
+using System.Diagnostics;
+using Shadowsocks.View;
+using System.Windows.Forms;
 
 namespace Shadowsocks.Controller
 {
@@ -43,6 +47,19 @@ namespace Shadowsocks.Controller
 
         private bool _systemProxyIsDirty = false;
 
+        private const string emptyPreConfigsStr  = "[]";
+        private string preConfigsStr = emptyPreConfigsStr;
+        public void AssignAndReloadConfigsIfDiff(JToken configs)
+        {
+            String configsStr = configs == null ? "[]" : configs.ToString();
+            if (configsStr != preConfigsStr)
+            {
+                MenuViewController.one().ShowBalloonTip("", I18N.GetString("Server List Successfully Updated"), ToolTipIcon.Info, 2000);
+                preConfigsStr = configsStr;
+                _config.configs = JsonConvert.DeserializeObject<List<Server>>(configsStr);
+                SaveConfig(_config);
+            }
+        }
         public class PathEventArgs : EventArgs
         {
             public string Path;
@@ -83,9 +100,18 @@ namespace Shadowsocks.Controller
 
         public event ErrorEventHandler Errored;
 
+        private static ShadowsocksController _shadowsocksController = null;
+        public static ShadowsocksController one()
+        {
+            if (_shadowsocksController == null)
+            {
+                _shadowsocksController = new ShadowsocksController();
+            }
+            return _shadowsocksController;
+        }
         public ShadowsocksController()
         {
-            _config = Configuration.Load();
+            _config = Configuration.LoadFromProperties();
             StatisticsConfiguration = StatisticsStrategyConfiguration.Load();
             _strategyManager = new StrategyManager(this);
             StartReleasingMemory();
@@ -111,9 +137,11 @@ namespace Shadowsocks.Controller
         }
 
         // always return copy
-        public Configuration GetConfigurationCopy()
+        public Configuration GetFreshConfiguration()
         {
-            return Configuration.Load();
+            Configuration config = Configuration.LoadFromProperties();
+            config.configs = _config.configs;
+            return config;
         }
 
         // always return current instance
@@ -152,7 +180,12 @@ namespace Shadowsocks.Controller
             }
             return GetCurrentServer();
         }
-
+        public void EmptyServers()
+        {
+            preConfigsStr = emptyPreConfigsStr;
+            _config.configs = new List<Server>();
+            Reload();
+        }
         public void SaveServers(List<Server> servers, int localPort)
         {
             _config.configs = servers;
@@ -244,6 +277,7 @@ namespace Shadowsocks.Controller
             _config.index = index;
             _config.strategy = null;
             SaveConfig(_config);
+            MenuViewController.one().BlinkTrayIcon();
         }
 
         public void SelectStrategy(string strategyID)
@@ -417,7 +451,6 @@ namespace Shadowsocks.Controller
         {
             Encryption.RNG.Reload();
             // some logic in configuration updated the config when saving, we need to read it again
-            _config = Configuration.Load();
             StatisticsConfiguration = StatisticsStrategyConfiguration.Load();
 
             if (privoxyRunner == null)

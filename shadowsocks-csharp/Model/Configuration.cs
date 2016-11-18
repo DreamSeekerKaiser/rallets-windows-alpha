@@ -4,6 +4,7 @@ using System.IO;
 
 using Shadowsocks.Controller;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace Shadowsocks.Model
 {
@@ -38,6 +39,28 @@ namespace Shadowsocks.Model
             else
                 return GetDefaultServer();
         }
+        public static Configuration Default()
+        {
+            return new Configuration
+            {
+                configs = new List<Server>() {},
+                strategy = null,
+                index = 0,
+                global = false,
+                enabled = false,
+                shareOverLan = false,
+                isDefault = false,
+                localPort = 1080,
+                pacUrl = null,
+                useOnlinePac = false,
+                availabilityStatistics = false,
+                autoCheckUpdate = true,
+                isVerboseLogging = false,
+                logViewer = new LogViewerConfig(),
+                proxy = new ProxyConfig(), // Rallets Bug: If this is missing, rallets will not work. 
+                hotkey = new HotkeyConfig()
+            };
+        }
 
         public static void CheckServer(Server server)
         {
@@ -47,12 +70,13 @@ namespace Shadowsocks.Model
             CheckTimeout(server.timeout, Server.MaxServerTimeoutSec);
         }
 
-        public static Configuration Load()
+        public static Configuration LoadFromProperties()
         {
             try
             {
-                string configContent = File.ReadAllText(CONFIG_FILE);
+                string configContent = Properties.Settings.Default.configuration;
                 Configuration config = JsonConvert.DeserializeObject<Configuration>(configContent);
+                if (config == null) return Default();
                 config.isDefault = false;
                 if (config.localPort == 0)
                     config.localPort = 1080;
@@ -73,17 +97,7 @@ namespace Shadowsocks.Model
             {
                 if (!(e is FileNotFoundException))
                     Logging.LogUsefulException(e);
-                return new Configuration
-                {
-                    index = 0,
-                    isDefault = true,
-                    localPort = 1080,
-                    autoCheckUpdate = true,
-                    configs = new List<Server>()
-                    {
-                        GetDefaultServer()
-                    }
-                };
+                return Default();
             }
         }
 
@@ -98,12 +112,11 @@ namespace Shadowsocks.Model
             config.isDefault = false;
             try
             {
-                using (StreamWriter sw = new StreamWriter(File.Open(CONFIG_FILE, FileMode.Create)))
-                {
-                    string jsonString = JsonConvert.SerializeObject(config, Formatting.Indented);
-                    sw.Write(jsonString);
-                    sw.Flush();
-                }
+                Configuration c = config.MemberwiseClone() as Configuration;
+                c.configs = new List<Server>();
+                string jsonString = JsonConvert.SerializeObject(c, Formatting.Indented);
+                Properties.Settings.Default.configuration = jsonString;
+                Properties.Settings.Default.Save();
             }
             catch (IOException e)
             {

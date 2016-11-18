@@ -94,7 +94,7 @@ namespace ZXing
       /// 1D readers supporting rotation with TRY_HARDER enabled.
       /// But BarcodeReader class can do auto-rotating for 1D and 2D codes.
       /// Enabling that option prevents 1D readers doing double rotation.
-      /// BarcodeReader enables that option automatically if "global" auto-rotation is enabled.
+      /// BarcodeReader enables that option automatically if "Global Mode" auto-rotation is enabled.
       /// Maps to <see cref="bool" />.
       /// </summary>
       TRY_HARDER_WITHOUT_ROTATION,

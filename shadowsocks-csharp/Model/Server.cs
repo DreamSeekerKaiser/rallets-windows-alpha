@@ -43,24 +43,22 @@ namespace Shadowsocks.Model
             {
                 return I18N.GetString("New server");
             }
-            string serverStr;
+            //string serverStr;
             // CheckHostName() won't do a real DNS lookup
             var hostType = Uri.CheckHostName( server );
             if ( hostType == UriHostNameType.Unknown ) {
                 throw new FormatException("Invalid Server Address.");
             }
-            switch ( hostType ) {
-                case UriHostNameType.IPv6:
-                    serverStr = $"[{server}]:{server_port}";
-                    break;
-                default:
-                    // IPv4 and domain name
-                    serverStr = $"{server}:{server_port}";
-                    break;
-            }
-            return remarks.IsNullOrEmpty()
-                ? serverStr
-                : $"{remarks} ({serverStr})";
+            //switch ( hostType ) {
+            //    case UriHostNameType.IPv6:
+            //        serverStr = $"[{server}]:{server_port}";
+            //        break;
+            //    default:
+            //        // IPv4 and domain name
+            //        serverStr = $"{server}:{server_port}";
+            //        break;
+            //}
+            return remarks.IsNullOrEmpty() ? "Rallets·þÎñÆ÷" : remarks;
         }
 
         public Server()

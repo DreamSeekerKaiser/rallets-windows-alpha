@@ -14,7 +14,7 @@ namespace Shadowsocks.Controller
 {
     public class GFWListUpdater
     {
-        private const string GFWLIST_URL = "https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt";
+        private const string GFWLIST_URL = "https://raw.githubusercontent.com/ralletstellar/gfwlist/master/gfwlist.txt";
 
         public event EventHandler<ResultEventArgs> UpdateCompleted;
 
@@ -79,7 +79,7 @@ namespace Shadowsocks.Controller
             {
                 if (Error != null)
                 {
-                    Error(this, new ErrorEventArgs(ex));
+                    Error(this, new ErrorEventArgs(new Exception("Make sure your system is connected to the internet and can go online")));
                 }
             }
         }

@@ -31,7 +31,7 @@ namespace Shadowsocks.View
         {
             InitializeComponent();
             UpdateTexts();
-            this.Icon = Icon.FromHandle(Resources.ssw128.GetHicon());
+            this.Icon = Icon.FromHandle(Resources.logo_128.GetHicon());
 
             _controller = controller;
             _controller.ConfigChanged += controller_ConfigChanged;
@@ -50,7 +50,7 @@ namespace Shadowsocks.View
 
         private void LoadCurrentConfiguration()
         {
-            _modifiedConfig = _controller.GetConfigurationCopy().hotkey;
+            _modifiedConfig = _controller.GetFreshConfiguration().hotkey;
             LoadConfiguration(_modifiedConfig);
         }
 
@@ -247,13 +247,13 @@ namespace Shadowsocks.View
 
         private void SwitchSystemProxyCallback()
         {
-            bool enabled = _controller.GetConfigurationCopy().enabled;
+            bool enabled = _controller.GetFreshConfiguration().enabled;
             _controller.ToggleEnable(!enabled);
         }
 
         private void SwitchProxyModeCallback()
         {
-            var config = _controller.GetConfigurationCopy();
+            var config = _controller.GetFreshConfiguration();
             if (config.enabled == false) return;
             var currStatus = config.global;
             _controller.ToggleGlobal(!currStatus);
@@ -261,7 +261,7 @@ namespace Shadowsocks.View
 
         private void SwitchAllowLanCallback()
         {
-            var status = _controller.GetConfigurationCopy().shareOverLan;
+            var status = _controller.GetFreshConfiguration().shareOverLan;
             _controller.ToggleShareOverLAN(!status);
         }
 

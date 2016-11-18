@@ -118,6 +118,7 @@ namespace Shadowsocks.View
                 StatisticsChart.ChartAreas["DataArea"].AxisX.LabelStyle.Format = "HH:00";
                 StatisticsChart.ChartAreas["DataArea"].AxisX2.LabelStyle.Format = "HH:00";
             }
+            if (dataGroups == null) return;
             var finalData = from dataGroup in dataGroups
                             orderby dataGroup.Key
                             select new

@@ -139,28 +139,70 @@
   <data name="proxy_pac_txt" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Data\proxy.pac.txt.gz;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="ss16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ss16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ss20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ss20.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ss24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ss24.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ssIn24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ssIn24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ssOut24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ssOut24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ssw128" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ssw128.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="user_rule" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\data\user-rule.txt;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="zh_tw" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Data\zh_tw.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="icon_128_b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon_128_b.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_32_b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon_32_b.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_128" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon_128.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_128" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_128.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_close_18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\btn_close_18.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_min_18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\btn_min_18.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_32_w" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon_32_w.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_32_g" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\logo_32_g.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_32_d" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\icon_32_d.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_32_u" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon_32_u.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_32_ud" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\icon_32_ud.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_64_g" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon_64_g.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_close_18_blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btn_close_18_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="btn_min_18_blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\btn_min_18_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pwd_96" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pwd_96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="user_96" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\user_96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_32_g" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\icon_32_g.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

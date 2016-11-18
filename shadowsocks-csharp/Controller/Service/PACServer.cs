@@ -14,9 +14,9 @@ namespace Shadowsocks.Controller
 {
     class PACServer : Listener.Service
     {
-        public static readonly string PAC_FILE = "pac.txt";
-        public static readonly string USER_RULE_FILE = "user-rule.txt";
-        public static readonly string USER_ABP_FILE = "abp.txt";
+        public static readonly string PAC_FILE = Utils.GetTempPath("pac.txt");
+        public static readonly string USER_RULE_FILE = Utils.GetTempPath("user-rule.txt");
+        public static readonly string USER_ABP_FILE = Utils.GetTempPath("abp.txt");
 
         FileSystemWatcher PACFileWatcher;
         FileSystemWatcher UserRuleFileWatcher;

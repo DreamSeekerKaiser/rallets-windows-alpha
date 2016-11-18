@@ -12,3 +12,10 @@ shadowsocks-csharp/3rd/*
 packages/*
 
 shadowsocks-csharp.sln.DotSettings.user
+output
+.*~
+*.swp
+*~
+
+installshieldpro2015/RalletsSetup/Media/
+installshieldpro2015/RalletsSetup/_isuser_0x0804.dll

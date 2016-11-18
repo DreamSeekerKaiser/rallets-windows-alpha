@@ -47,7 +47,7 @@
             // 
             this.listBox1.DisplayMember = "Value";
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 12;
+            // this.listBox1.ItemHeight = 12;
             this.listBox1.Location = new System.Drawing.Point(224, 10);
             this.listBox1.Name = "listBox1";
             this.listBox1.ScrollAlwaysVisible = true;

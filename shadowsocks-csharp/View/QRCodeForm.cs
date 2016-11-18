@@ -23,7 +23,7 @@ namespace Shadowsocks.View
         {
             this.code = code;
             InitializeComponent();
-            this.Icon = Icon.FromHandle(Resources.ssw128.GetHicon());
+            this.Icon = Icon.FromHandle(Resources.logo_128.GetHicon());
             this.Text = I18N.GetString("QRCode");
         }
 
@@ -56,7 +56,7 @@ namespace Shadowsocks.View
 
         private void QRCodeForm_Load(object sender, EventArgs e)
         {
-            var servers = Configuration.Load();
+            var servers = Configuration.LoadFromProperties();
             var serverDatas = servers.configs.Select(
                 server =>
                     new KeyValuePair<string, string>(ShadowsocksController.GetQRCode(server), server.FriendlyName())

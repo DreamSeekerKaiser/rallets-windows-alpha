@@ -47,9 +47,9 @@ namespace Shadowsocks.View
             this.controller = controller;
             this.filename = filename;
             InitializeComponent();
-            Icon = Icon.FromHandle(Resources.ssw128.GetHicon());
+            Icon = Icon.FromHandle(Resources.logo_128.GetHicon());
 
-            LogViewerConfig config = controller.GetConfigurationCopy().logViewer;
+            LogViewerConfig config = controller.GetFreshConfiguration().logViewer;
 
             topMostTrigger = config.topMost;
             wrapTextTrigger = config.wrapText;
@@ -227,7 +227,7 @@ namespace Shadowsocks.View
             timer.Tick += Timer_Tick;
             timer.Start();
 
-            LogViewerConfig config = controller.GetConfigurationCopy().logViewer;
+            LogViewerConfig config = controller.GetFreshConfiguration().logViewer;
 
             Height = config.Height;
             Width = config.Width;
@@ -253,7 +253,7 @@ namespace Shadowsocks.View
         {
             timer.Stop();
             controller.TrafficChanged -= controller_TrafficChanged;
-            LogViewerConfig config = controller.GetConfigurationCopy().logViewer;
+            LogViewerConfig config = controller.GetFreshConfiguration().logViewer;
 
             config.topMost = topMostTrigger;
             config.wrapText = wrapTextTrigger;

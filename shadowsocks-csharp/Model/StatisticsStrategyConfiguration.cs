@@ -21,13 +21,17 @@ namespace Shadowsocks.Model
         public int DataCollectionMinutes { get; set; } = 10;
         public int RepeatTimesNum { get; set; } = 4;
 
-        private const string ConfigFile = "statistics-config.json";
-
+        private static string getConfigPath()
+        {
+            string ralletsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Rallets");
+            if (!Directory.Exists(ralletsFolder)) Directory.CreateDirectory(ralletsFolder);
+            return Path.Combine(ralletsFolder, "statistics-config.json");
+        }
         public static StatisticsStrategyConfiguration Load()
         {
             try
             {
-                var content = File.ReadAllText(ConfigFile);
+                var content = File.ReadAllText(getConfigPath());
                 var configuration = JsonConvert.DeserializeObject<StatisticsStrategyConfiguration>(content);
                 return configuration;
             }
@@ -49,7 +53,7 @@ namespace Shadowsocks.Model
             try
             {
                 var content = JsonConvert.SerializeObject(configuration, Formatting.Indented);
-                File.WriteAllText(ConfigFile, content);
+                File.WriteAllText(getConfigPath(), content);
             }
             catch (Exception e)
             {

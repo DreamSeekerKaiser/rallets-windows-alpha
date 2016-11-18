@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Text.RegularExpressions;
+using Shadowsocks.Extensions;
 
 using Newtonsoft.Json.Linq;
 
 using Shadowsocks.Model;
 using Shadowsocks.Util;
+using System.Diagnostics;
 
 namespace Shadowsocks.Controller
 {
     public class UpdateChecker
     {
-        private const string UpdateURL = "https://api.github.com/repos/shadowsocks/shadowsocks-windows/releases";
-        private const string UserAgent = "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.3319.102 Safari/537.36";
-
         private Configuration config;
         public bool NewVersionFound;
         public string LatestVersionNumber;
@@ -22,8 +21,6 @@ namespace Shadowsocks.Controller
         public string LatestVersionURL;
         public string LatestVersionLocalName;
         public event EventHandler CheckUpdateCompleted;
-
-        public const string Version = "3.3.5";
 
         private class CheckUpdateTimer : System.Timers.Timer
         {
@@ -56,13 +53,9 @@ namespace Shadowsocks.Controller
         public void CheckUpdate(Configuration config)
         {
             this.config = config;
-
             try
             {
-                Logging.Debug("Checking updates...");
-                WebClient http = CreateWebClient();
-                http.DownloadStringCompleted += http_DownloadStringCompleted;
-                http.DownloadStringAsync(new Uri(UpdateURL));
+                Request.one().GetAsync("system_data", http_DownloadStringCompleted);
             }
             catch (Exception ex)
             {
@@ -75,51 +68,32 @@ namespace Shadowsocks.Controller
             try
             {
                 string response = e.Result;
-
-                JArray result = JArray.Parse(response);
-
-                List<Asset> asserts = new List<Asset>();
-                if (result != null)
+                JObject result = JObject.Parse(response);
+                if (result.ok())
                 {
-                    foreach (JObject release in result)
+                    JToken clients = result["settings"]["clients"];
+                    string version = (string)clients["windows_version"];
+                    if (Utils.isVersionNewerThanSystem(version))
                     {
-                        if ((bool)release["prerelease"])
-                        {
-                            continue;
-                        }
-                        foreach (JObject asset in (JArray)release["assets"])
-                        {
-                            Asset ass = new Asset();
-                            ass.Parse(asset);
-                            if (ass.IsNewVersion(Version))
-                            {
-                                asserts.Add(ass);
-                            }
-                        }
+                        NewVersionFound = true;
+                        string url = (string)clients["windows_download_link"];
+                        LatestVersionURL = url;
+                        LatestVersionNumber = version;
+                        string[] segs = url.Split('/');
+                        LatestVersionName = segs[segs.Length - 1];
+                        startDownload();
+                        return;
                     }
                 }
-                if (asserts.Count != 0)
+                Logging.Debug("No update is available");
+                if (CheckUpdateCompleted != null)
                 {
-                    SortByVersions(asserts);
-                    Asset asset = asserts[asserts.Count - 1];
-                    NewVersionFound = true;
-                    LatestVersionURL = asset.browser_download_url;
-                    LatestVersionNumber = asset.version;
-                    LatestVersionName = asset.name;
-
-                    startDownload();
-                }
-                else
-                {
-                    Logging.Debug("No update is available");
-                    if (CheckUpdateCompleted != null)
-                    {
-                        CheckUpdateCompleted(this, new EventArgs());
-                    }
+                    CheckUpdateCompleted(this, new EventArgs());
                 }
             }
             catch (Exception ex)
             {
+                Debug.WriteLine(ex.ToString());
                 Logging.LogUsefulException(ex);
             }
         }
@@ -129,9 +103,8 @@ namespace Shadowsocks.Controller
             try
             {
                 LatestVersionLocalName = Utils.GetTempPath(LatestVersionName);
-                WebClient http = CreateWebClient();
-                http.DownloadFileCompleted += Http_DownloadFileCompleted;
-                http.DownloadFileAsync(new Uri(LatestVersionURL), LatestVersionLocalName);
+                Debug.WriteLine(LatestVersionLocalName);
+                Request.one().DownloadAsync(LatestVersionURL, LatestVersionLocalName, Http_DownloadFileCompleted);
             }
             catch (Exception ex)
             {
@@ -160,14 +133,6 @@ namespace Shadowsocks.Controller
             }
         }
 
-        private WebClient CreateWebClient()
-        {
-            WebClient http = new WebClient();
-            http.Headers.Add("User-Agent", UserAgent);
-            http.Proxy = new WebProxy(IPAddress.Loopback.ToString(), config.localPort);
-            return http;
-        }
-
         private void SortByVersions(List<Asset> asserts)
         {
             asserts.Sort(new VersionComparer());
@@ -190,7 +155,7 @@ namespace Shadowsocks.Controller
                 {
                     return false;
                 }
-                return CompareVersion(version, currentVersion) > 0;
+                return Utils.CompareVersion(version, currentVersion) > 0;
             }
 
             public void Parse(JObject asset)
@@ -214,21 +179,6 @@ namespace Shadowsocks.Controller
                 return null;
             }
 
-            public static int CompareVersion(string l, string r)
-            {
-                var ls = l.Split('.');
-                var rs = r.Split('.');
-                for (int i = 0; i < Math.Max(ls.Length, rs.Length); i++)
-                {
-                    int lp = (i < ls.Length) ? int.Parse(ls[i]) : 0;
-                    int rp = (i < rs.Length) ? int.Parse(rs[i]) : 0;
-                    if (lp != rp)
-                    {
-                        return lp - rp;
-                    }
-                }
-                return 0;
-            }
         }
 
         class VersionComparer : IComparer<Asset>
@@ -236,7 +186,7 @@ namespace Shadowsocks.Controller
             // Calls CaseInsensitiveComparer.Compare with the parameters reversed. 
             public int Compare(Asset x, Asset y)
             {
-                return Asset.CompareVersion(x.version, y.version);
+                return Utils.CompareVersion(x.version, y.version);
             }
         }
     }

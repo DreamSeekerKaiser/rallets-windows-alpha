@@ -64,7 +64,7 @@ namespace Shadowsocks.Controller
                 {
                     if (item.Equals(Key, StringComparison.OrdinalIgnoreCase))
                         return true;
-                    else if (item.Equals("Shadowsocks", StringComparison.OrdinalIgnoreCase)) // Compatibility with older versions
+                    else if (item.Equals("Rallets", StringComparison.OrdinalIgnoreCase)) // Compatibility with older versions
                     {
                         string value = Convert.ToString(runKey.GetValue(item));
                         if (path.Equals(value, StringComparison.OrdinalIgnoreCase))

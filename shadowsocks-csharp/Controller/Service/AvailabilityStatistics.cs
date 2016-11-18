@@ -309,7 +309,15 @@ namespace Shadowsocks.Controller
                         //do nothing
                     }
                 }
-                var content = File.ReadAllText(path);
+                FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                StreamReader sr = new StreamReader(fs, System.Text.Encoding.Default);
+                string strLine = sr.ReadLine();
+                String content = "";
+                while (strLine != null)
+                {
+                    strLine = sr.ReadLine();
+                    content += strLine;
+                }
                 RawStatistics = JsonConvert.DeserializeObject<Statistics>(content) ?? RawStatistics;
             }
             catch (Exception e)

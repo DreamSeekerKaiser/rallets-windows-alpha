@@ -71,18 +71,54 @@ namespace Shadowsocks.Properties {
         }
         
         /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap btn_close_18 {
+            get {
+                object obj = ResourceManager.GetObject("btn_close_18", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap btn_close_18_blue {
+            get {
+                object obj = ResourceManager.GetObject("btn_close_18_blue", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap btn_min_18 {
+            get {
+                object obj = ResourceManager.GetObject("btn_min_18", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap btn_min_18_blue {
+            get {
+                object obj = ResourceManager.GetObject("btn_min_18_blue", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 # translation for Simplified Chinese
         ///
         ///Shadowsocks=Shadowsocks
         ///
         ///# Menu items
         ///
-        ///Enable System Proxy=启用系统代理
         ///Mode=系统代理模式
-        ///PAC=PAC 模式
-        ///Global=全局模式
         ///Servers=服务器
-        ///Edit Servers...=编辑服务器...
         ///Statistics Config...=统计配置...
         ///Start on Boot=开机启动
         ///Forward Proxy...=正向代理设置...
@@ -90,14 +126,106 @@ namespace Shadowsocks.Properties {
         ///Local PAC=使用本地 PAC
         ///Online PAC=使用在线 PAC
         ///Edit Local PAC File...=编辑本地 PAC 文件...
-        ///Update Local PAC from GFWList=从 GFWList 更新本地 PAC
-        ///Edit User Rule for GFWList...=编辑 GFWList 的用户规则...
+        ///Update Local PAC from Rallets=从 Rallets 更新本地 PAC
+        ///Edit User Rule for Rallets...=编辑 Rallets 的用户规则...
         ///Show QRCode...=显示二维码...
-        ///Scan  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///Scan QRCode from Screen...=扫描屏幕上的二维码...
+        ///Availability Statistics=统计可用性
+        ///Show Logs... [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string cn {
             get {
                 return ResourceManager.GetString("cn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon icon_128 {
+            get {
+                object obj = ResourceManager.GetObject("icon_128", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon icon_128_b {
+            get {
+                object obj = ResourceManager.GetObject("icon_128_b", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon icon_32_b {
+            get {
+                object obj = ResourceManager.GetObject("icon_32_b", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon icon_32_d {
+            get {
+                object obj = ResourceManager.GetObject("icon_32_d", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon icon_32_g {
+            get {
+                object obj = ResourceManager.GetObject("icon_32_g", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon icon_32_u {
+            get {
+                object obj = ResourceManager.GetObject("icon_32_u", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon icon_32_ud {
+            get {
+                object obj = ResourceManager.GetObject("icon_32_ud", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon icon_32_w {
+            get {
+                object obj = ResourceManager.GetObject("icon_32_w", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon icon_64_g {
+            get {
+                object obj = ResourceManager.GetObject("icon_64_g", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -108,6 +236,56 @@ namespace Shadowsocks.Properties {
             get {
                 object obj = ResourceManager.GetObject("libsscrypto_dll", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_128 {
+            get {
+                object obj = ResourceManager.GetObject("logo_128", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_20 {
+            get {
+                object obj = ResourceManager.GetObject("logo_20", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_24 {
+            get {
+                object obj = ResourceManager.GetObject("logo_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_32 {
+            get {
+                object obj = ResourceManager.GetObject("logo_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_32_g {
+            get {
+                object obj = ResourceManager.GetObject("logo_32_g", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -158,9 +336,9 @@ namespace Shadowsocks.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap ss16 {
+        internal static System.Drawing.Bitmap pwd_96 {
             get {
-                object obj = ResourceManager.GetObject("ss16", resourceCulture);
+                object obj = ResourceManager.GetObject("pwd_96", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -168,49 +346,9 @@ namespace Shadowsocks.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap ss20 {
+        internal static System.Drawing.Bitmap user_96 {
             get {
-                object obj = ResourceManager.GetObject("ss20", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap ss24 {
-            get {
-                object obj = ResourceManager.GetObject("ss24", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap ssIn24 {
-            get {
-                object obj = ResourceManager.GetObject("ssIn24", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap ssOut24 {
-            get {
-                object obj = ResourceManager.GetObject("ssOut24", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap ssw128 {
-            get {
-                object obj = ResourceManager.GetObject("ssw128", resourceCulture);
+                object obj = ResourceManager.GetObject("user_96", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -236,9 +374,7 @@ namespace Shadowsocks.Properties {
         ///Enable System Proxy=啟用系統代理
         ///Mode=系統代理模式
         ///PAC=PAC 模式
-        ///Global=全局模式
         ///Servers=伺服器
-        ///Edit Servers...=編輯伺服器...
         ///Statistics Config...=統計配置...
         ///Start on Boot=開機啟動
         ///Forward Proxy...=正向代理設置...
@@ -246,10 +382,11 @@ namespace Shadowsocks.Properties {
         ///Local PAC=使用本地 PAC
         ///Online PAC=使用在線 PAC
         ///Edit Local PAC File...=編輯本地 PAC 文件...
-        ///Update Local PAC from GFWList=從 GFWList 更新本地 PAC
-        ///Edit User Rule for GFWList...=編輯 GFWList 的用戶規則...
+        ///Update Local PAC from Rallets=從 Rallets 更新本地 PAC
+        ///Edit User Rule for Rallets...=編輯 Rallets 的用戶規則...
         ///Show QRCode...=顯示 QR 碼...
-        ///Scan QRCode from Screen [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///Scan QRCode from Screen...=掃描螢幕上的 QR 碼...
+        ///Availability Stati [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string zh_tw {
             get {

@@ -8,6 +8,10 @@ using Microsoft.Win32;
 using Shadowsocks.Controller;
 using Shadowsocks.Util;
 using Shadowsocks.View;
+using Shadowsocks.Extensions;
+using Newtonsoft.Json.Linq;
+using Shadowsocks.Model;
+using Shadowsocks.Exceptions;
 
 namespace Shadowsocks
 {
@@ -24,24 +28,13 @@ namespace Shadowsocks
         static void Main()
         {
             // Check OS since we are using dual-mode socket
+            if (!Utils.CheckFIPSAuthentication()) return;
             if (!Utils.IsWinVistaOrHigher())
             {
                 MessageBox.Show(I18N.GetString("Unsupported operating system, use Windows Vista at least."),
                 "Shadowsocks Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            // Check .NET Framework version
-            if (!Utils.IsSupportedRuntimeVersion())
-            {
-                MessageBox.Show(I18N.GetString("Unsupported .NET Framework, please update to 4.6.2 or later."),
-                "Shadowsocks Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                Process.Start(
-                    "http://dotnetsocial.cloudapp.net/GetDotnet?tfm=.NETFramework,Version=v4.6.2");
-                return;
-            }
-
             Utils.ReleaseMemory(true);
             using (Mutex mutex = new Mutex(false, $"Global\\Shadowsocks_{Application.StartupPath.GetHashCode()}"))
             {
@@ -62,10 +55,10 @@ namespace Shadowsocks
                     {
                         Process oldProcess = oldProcesses[0];
                     }
-                    MessageBox.Show(I18N.GetString("Find Shadowsocks icon in your notify tray.")
+                    MessageBox.Show(I18N.GetString("Find Rallets icon in your notify tray.")
                         + Environment.NewLine
-                        + I18N.GetString("If you want to start multiple Shadowsocks, make a copy in another directory."),
-                        I18N.GetString("Shadowsocks is already running."));
+                        + I18N.GetString("If you want to start multiple Rallets, make a copy in another directory."),
+                        I18N.GetString("Rallets is already running."));
                     return;
                 }
                 Directory.SetCurrentDirectory(Application.StartupPath);
@@ -79,12 +72,21 @@ namespace Shadowsocks
 #else
                 Logging.OpenLogFile();
 #endif
-                _controller = new ShadowsocksController();
-                _viewController = new MenuViewController(_controller);
+                Test(); // TODO
+                _controller = ShadowsocksController.one();
+                _viewController = MenuViewController.one();
+                NotificationRunner.one().Start();
                 HotKeys.Init();
                 _controller.Start();
+                // 程序退出前把代理设置清除
+                Application.ApplicationExit += new EventHandler((s, e) => {
+                    SystemProxy.Disable();
+                });
                 Application.Run();
             }
+        }
+        private static void Test()
+        {
         }
 
         private static int exited = 0;
@@ -95,7 +97,7 @@ namespace Shadowsocks
                 string errMsg = e.ExceptionObject.ToString();
                 Logging.Error(errMsg);
                 MessageBox.Show(
-                    $"{I18N.GetString("Unexpected error, shadowsocks will exit. Please report to")} https://github.com/shadowsocks/shadowsocks-windows/issues {Environment.NewLine}{errMsg}",
+                    $"{I18N.GetString("Unexpected error, Rallets will exit. Please report to")} 微信公众号\"星际加速\" {Environment.NewLine}{errMsg}",
                     "Shadowsocks non-UI Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
             }
@@ -108,7 +110,7 @@ namespace Shadowsocks
                 string errorMsg = $"Exception Detail: {Environment.NewLine}{e.Exception}";
                 Logging.Error(errorMsg);
                 MessageBox.Show(
-                    $"{I18N.GetString("Unexpected error, shadowsocks will exit. Please report to")} https://github.com/shadowsocks/shadowsocks-windows/issues {Environment.NewLine}{errorMsg}",
+                    $"{I18N.GetString("Unexpected error, Rallets will exit. Please report to")} 微信公众号\"星际加速\" {Environment.NewLine}{errorMsg}",
                     "Shadowsocks UI Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
             }

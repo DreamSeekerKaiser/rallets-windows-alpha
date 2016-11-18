@@ -1,7 +1,7 @@
-Shadowsocks for Windows
+Rallets for Windows
 =======================
 
-[![Build Status]][Appveyor]
+This project is based on [shadowsocks-windows](https://github.com/shadowsocks/shadowsocks-windows)
 
 [中文说明]
 

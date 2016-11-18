@@ -10,7 +10,10 @@ namespace Shadowsocks.Controller
         {
             return value.ToString("yyyyMMddHHmmssfff");
         }
-
+        public static void Disable()
+        {
+            WinINet.SetIEProxy(false, false, "", "");
+        }
         public static void Update(Configuration config, bool forceDisable)
         {
             bool global = config.global;
@@ -41,7 +44,7 @@ namespace Shadowsocks.Controller
                 }
                 else
                 {
-                    WinINet.SetIEProxy(false, false, "", "");
+                    Disable();
                 }
             }
             catch (ProxyException ex)

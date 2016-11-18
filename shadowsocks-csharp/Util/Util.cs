@@ -6,6 +6,9 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using Shadowsocks.Controller;
+using Newtonsoft.Json.Linq;
+using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace Shadowsocks.Util
 {
@@ -233,11 +236,31 @@ namespace Shadowsocks.Util
             }
         }
 
+        // 原因:  Rallets使用了MD5算法，而某些用户的系统组策略安全设置导致无法使用此算法。 
+        //        系统报错: "无法启动：此实现不是Windows平台FIPS验证的加密算法的一部分"
+        public static bool CheckFIPSAuthentication()
+        {
+            try
+            {
+                using (RegistryKey fipsAlgorithmPolicy = Registry.LocalMachine.OpenSubKey(@"System\CurrentControlSet\Control\Lsa\FIPSAlgorithmPolicy"))
+                {
+                    if (fipsAlgorithmPolicy.GetValue("Enabled").ToString() == "1")
+                    {
+                        var ret = MessageBox.Show(I18N.GetString("Rallets has encountered an issue about system configuration, please repair it by downloading \"Rallets-Config.bat\" and running it in Administrator Mode. After that, restart Rallets."), I18N.GetString("Rallets"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        if (ret == DialogResult.Yes)
+                        {
+                            Url.Goto("http://assets.rallets.com/Rallets-Config-1.0.bat");
+                        }
+                        return false;
+                    }
+                }
+            } catch {}
+            return true;
+        }
         public static bool IsWinVistaOrHigher()
         {
             return Environment.OSVersion.Version.Major > 5;
         }
-
         [DllImport("kernel32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool SetProcessWorkingSetSize(IntPtr process,
@@ -267,6 +290,59 @@ namespace Shadowsocks.Util
                     if (releaseKey >= minSupportedRelease)
                     {
                         return true;
+                    }
+                }
+            }
+            return false;
+        }
+               public static double Truncate(double value, int precision)
+        {
+            return Math.Truncate(value * Math.Pow(10, precision)) / Math.Pow(10, precision);
+        }
+
+        public static String getCurrentVersion()
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
+            return fileVersionInfo.ProductVersion;
+        }
+
+        private static string preNewestVersion = "";
+        public static Regex UrlRegex = new Regex(@"^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&$%\$#\=~])*$");
+        public static int CompareVersion(string l, string r)
+        {
+            var ls = l.Split('.');
+            var rs = r.Split('.');
+            for (int i = 0; i < Math.Max(ls.Length, rs.Length); i++)
+            {
+                int lp = (i < ls.Length) ? int.Parse(ls[i]) : 0;
+                int rp = (i < rs.Length) ? int.Parse(rs[i]) : 0;
+                if (lp != rp)
+                {
+                    return lp - rp;
+                }
+            }
+            return 0;
+        }
+        public static bool isVersionNewerThanSystem(string version)
+        {
+            return CompareVersion(version, getCurrentVersion()) > 0;
+        }
+        public static Boolean isNewVersionAvailable(JToken systemNotification)
+        {
+            String newestVersion = (String)systemNotification["version"];
+            if (isVersionNewerThanSystem(newestVersion) && preNewestVersion != newestVersion)
+            {
+                preNewestVersion = newestVersion;
+
+                if (MessageBox.Show("Rallets " + I18N.GetString("has a new version") + newestVersion + ", " + 
+                    I18N.GetString("click OK button to download the newest"), "Rallets" + I18N.GetString("has a new version!"), 
+                    MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    String downloadLink = (String)systemNotification["download_link"];
+                    if (Util.Utils.UrlRegex.Match(downloadLink).Success)
+                    {
+                        Process.Start(downloadLink);
                     }
                 }
             }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
+using System.Security.AccessControl;
 
 namespace Shadowsocks.Controller
 {
@@ -28,8 +29,8 @@ namespace Shadowsocks.Controller
             // we are using an arbitrary buffer size.
             byte[] buffer = new byte[4096];
             int n;
-
-            using(var fs = File.Create(fileName))
+            
+            using (var fs = File.Create(fileName))
             using (var input = new GZipStream(new MemoryStream(content),
                     CompressionMode.Decompress, false))
             {
@@ -38,6 +39,8 @@ namespace Shadowsocks.Controller
                     fs.Write(buffer, 0, n);
                 }
             }
+            
         }
+        
     }
 }
